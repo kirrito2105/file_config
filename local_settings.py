@@ -6,24 +6,11 @@
 # Django - many of these settings below have external documentation about them.
 #
 # The settings listed here are of special interest in configuring the site.
-import datetime
-
-# Cho phép tác giả contest tải dữ liệu
-DMOJ_CONTEST_DATA_DOWNLOAD = True
-
-# Thư mục cache contest data
-DMOJ_CONTEST_DATA_CACHE = '/home/agoj/contestdatacache'
-
-# Nginx nội bộ (internal redirect)
-DMOJ_CONTEST_DATA_INTERNAL = '/contestdatacache'
-
-# Giới hạn tần suất xuất dữ liệu (mỗi contest 1 lần/ngày)
-DMOJ_CONTEST_DATA_DOWNLOAD_RATELIMIT = datetime.timedelta(days=1)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # You may use this command to generate a key:
 # python3 -c 'from django.core.management.utils import get_random_secret_key;print(get_random_secret_key())'
-SECRET_KEY = 'wz!k)eo=cop&ubdbxp)*%8^-lr3x3_ubjf)q4%0a7nf9-q!osh'
+SECRET_KEY = 'This key is not very secure and you should change it.'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False  # Change to False once you are done with runserver testing.
@@ -33,7 +20,8 @@ DEBUG = False  # Change to False once you are done with runserver testing.
 #ALLOWED_HOSTS = ['oj.vnoi.info']
 
 # Optional apps that DMOJ can make use of.
-INSTALLED_APPS += ()
+INSTALLED_APPS += (
+)
 
 # Caching. You can use memcached or redis instead.
 # Documentation: <https://docs.djangoproject.com/en/3.2/topics/cache/>
@@ -50,7 +38,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'dmoj',
         'USER': 'dmoj',
-        'PASSWORD': 'Agoj02@#',
+        'PASSWORD': '12345!@#',
         'HOST': '127.0.0.1',
         'OPTIONS': {
             'charset': 'utf8mb4',
@@ -70,6 +58,7 @@ DEFAULT_USER_TIME_ZONE = 'Asia/Ho_Chi_Minh'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+
 ## django-compressor settings, for speeding up page load times by minifying CSS and JavaScript files.
 # Documentation: <https://django-compressor.readthedocs.io/en/latest/>
 COMPRESS_OUTPUT_DIR = 'cache'
@@ -100,12 +89,6 @@ STATICFILES_FINDERS += ('compressor.finders.CompressorFinder',)
 #EMAIL_HOST_USER = '<your account>@gmail.com'
 #EMAIL_HOST_PASSWORD = '<your password>'
 #EMAIL_PORT = 587
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'noreply.agoj@gmail.com'
-EMAIL_HOST_PASSWORD = 'ljbn murv tqay casi'
-EMAIL_PORT = 587
 
 # To use Mailgun, uncomment this block.
 # You will need to run `pip install django-mailgun-mime` to get `MailgunBackend`.
@@ -123,11 +106,11 @@ EMAIL_PORT = 587
 # A tuple of (name, email) pairs that specifies those who will be mailed
 # when the server experiences an error when DEBUG = False.
 ADMINS = (
-    ('Argentium Online Judge', 'trungbacphan2105@gmail.com'),
+    ('Your Name', 'your.email@example.com'),
 )
 
 # The sender for the aforementioned emails.
-SERVER_EMAIL = 'AGOJ - Argentium Online Judge <trungbacphan2105@gmail.com>'
+SERVER_EMAIL = 'VNOJ: VNOI Online Judge <vnoj@vnoi.info>'
 
 
 ################################################
@@ -139,10 +122,10 @@ SERVER_EMAIL = 'AGOJ - Argentium Online Judge <trungbacphan2105@gmail.com>'
 # webserver to serve the static files. This is the directory where all the
 # static files DMOJ uses will be collected to.
 # You must configure your webserver to serve this directory as /static/ in production.
-STATIC_ROOT = '/home/agoj/site/static'
+STATIC_ROOT = '/tmp/static'
 
 # URL to access static files.
-STATIC_URL = '/static/'
+#STATIC_URL = '/static/'
 
 # Uncomment to use hashed filenames with the cache framework.
 #STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
@@ -153,22 +136,22 @@ STATIC_URL = '/static/'
 ############################################
 
 ## DMOJ site display settings.
-SITE_NAME = 'AGOJ'
-SITE_FULL_URL = 'https://oj.agoi.info'
-SITE_LONG_NAME = 'AGOJ: Argentium Online Judge'
-SITE_ADMIN_EMAIL = 'trungbacphan2105@gmail.com'
-TERMS_OF_SERVICE_URL = '//oj.agoi.info/tos/'  # Use a flatpage.
+SITE_NAME = 'VNOJ'
+SITE_FULL_URL = 'https://oj.vnoi.info'
+SITE_LONG_NAME = 'VNOJ: VNOI Online Judge'
+SITE_ADMIN_EMAIL = 'admin@example.com'
+TERMS_OF_SERVICE_URL = '//oj.vnoi.info/tos/'  # Use a flatpage.
 
 ## Media files settings.
 # This is the directory where all the media files are stored.
 # Change this to somewhere more permanent.
 # You must configure your webserver to serve this directory in production.
-MEDIA_ROOT = '/home/agoj/site/media'
+MEDIA_ROOT = '/tmp/media'
 
 ## Problem data settings.
 # This is the directory where all the problem data are stored.
 # Change this to somewhere more permanent.
-DMOJ_PROBLEM_DATA_ROOT = '/home/agoj/site/problems'
+DMOJ_PROBLEM_DATA_ROOT = '/tmp/problem_data/'
 
 ## Bridge controls.
 # The judge connection address and port; where the judges will connect to the site.
@@ -177,7 +160,7 @@ DMOJ_PROBLEM_DATA_ROOT = '/home/agoj/site/problems'
 BRIDGED_JUDGE_ADDRESS = [('localhost', 9999)]
 
 # The bridged daemon bind address and port to communicate with the site.
-BRIDGED_DJANGO_ADDRESS = [('localhost', 9998)]
+#BRIDGED_DJANGO_ADDRESS = [('localhost', 9998)]
 
 ## DMOJ features.
 # Set to True to enable full-text searching for problems.
@@ -218,25 +201,10 @@ BAD_MAIL_PROVIDERS = set()
 # only after you have a working event server.
 #EVENT_DAEMON_AMQP = '<amqp:// URL to connect to, including username and password>'
 #EVENT_DAEMON_AMQP_EXCHANGE = '<AMQP exchange to use>'
-## Event server.
-# Bật tính năng live update:
-EVENT_DAEMON_USE = True
 
-
-# URL nội bộ mà WebSocket daemon nhận POST từ Django:
-EVENT_DAEMON_POST = 'ws://127.0.0.1:15101/'
-
-# Client sẽ kết nối đến đây để nhận sự kiện (GET):
-EVENT_DAEMON_GET = 'ws://oj.agoi.info/event/'  # Đây là URL client dùng qua nginx reverse proxy
-
-# (Tuỳ chọn) Nếu có SSL, dùng cái này:
-EVENT_DAEMON_GET_SSL = 'wss://oj.agoi.info/event/'
-
-# Long polling fallback (người dùng không có WebSocket sẽ dùng đường dẫn này):
-EVENT_DAEMON_POLL = 'https://oj.agoi.info/channels/'
 ## Celery
-CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+#CELERY_BROKER_URL = 'redis://localhost:6379'
+#CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 
 ## CDN control.
 # Base URL for a copy of Ace editor.
@@ -251,8 +219,8 @@ SELECT2_CSS_URL = '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.mi
 TIMEZONE_MAP = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Blue_Marble_2002.png/1024px-Blue_Marble_2002.png'
 
 ## Camo (https://github.com/atmos/camo) usage.
-# DMOJ_CAMO_URL = '<URL to your camo install>'
-# DMOJ_CAMO_KEY = '<The CAMO_KEY environmental variable you used>'
+#DMOJ_CAMO_URL = '<URL to your camo install>'
+#DMOJ_CAMO_KEY = '<The CAMO_KEY environmental variable you used>'
 
 # Domains to exclude from being camo'd.
 #DMOJ_CAMO_EXCLUDE = ('https://dmoj.ml', 'https://dmoj.ca')
